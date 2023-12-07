@@ -4,7 +4,7 @@ const AllnewUser = () => {
     const [alluser, AllnewUser] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/Register')
+        fetch('https://nodes-a2y3.onrender.com/Register')
             .then(res => res.json())
             .then(data => AllnewUser(data))
     }, [])

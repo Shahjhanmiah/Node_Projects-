@@ -23,7 +23,7 @@ const Register = () => {
                 console.log(user);
             })
 
-        fetch('http://localhost:5000/Register', {
+        fetch('https://nodes-a2y3.onrender.com/Register', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

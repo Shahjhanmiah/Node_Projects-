@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthProvider";
 import { useRef } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import app from "./Firebaseinit";
-const auth =getAuth(app)
+const auth = getAuth(app)
 
 
 const Login = () => {
@@ -41,23 +41,22 @@ const Login = () => {
   }
   const handleResetPassword = event => {
     const email = emailRef.current.value;
-    if(!email){
+    if (!email) {
       alert('Please Provider your email Address to reset Password')
-      return
 
     }
-    sendPasswordResetEmail(auth,email)
-    .then(()=>{
-      alert('Pleace cheack your Email')
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert('Pleace cheack your Email')
 
-    })
-    .catch(error=>{
-      console.log(error)
-      setError(error.message)
-    
-    })
+      })
+      .catch(error => {
+        console.log(error);
+        setError(error.message)
 
-   }
+      })
+
+  }
   return (
     <div>
 
@@ -88,13 +87,13 @@ const Login = () => {
                   <input className="btn btn-primary" type="submit" value="Login" />
 
                   <p><small>Forget Password please:<button onClick={handleResetPassword} className="text-blue-600 text-xl">Reset Password</button></small></p>
-                
+
                 </div>
               </form>
 
               <p className='text-center'>Already have an account? <Link className='text-blue-600 font-bold' to="/Register">Register</Link> </p>
             </div>
-          
+
           </div>
         </div>
       </div>
