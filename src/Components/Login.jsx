@@ -3,11 +3,16 @@ import logo from '../assets/Tablet login-bro.png'
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
+import { useRef } from "react";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import app from "./Firebaseinit";
+const auth =getAuth(app)
 
 
 const Login = () => {
 
   const { login } = useContext(AuthContext)
+  const emailRef = useRef()
 
   const handleLogin = event => {
     event.preventDefault();
@@ -34,6 +39,25 @@ const Login = () => {
 
       .catch(error => console.log(error))
   }
+  const handleResetPassword = event => {
+    const email = emailRef.current.value;
+    if(!email){
+      alert('Please Provider your email Address to reset Password')
+      return
+
+    }
+    sendPasswordResetEmail(auth,email)
+    .then(()=>{
+      alert('Pleace cheack your Email')
+
+    })
+    .catch(error=>{
+      console.log(error)
+      setError(error.message)
+    
+    })
+
+   }
   return (
     <div>
 
@@ -51,7 +75,7 @@ const Login = () => {
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
-                  <input type="text" name='email' placeholder="email" className="input input-bordered" required />
+                  <input type="text" name='email' ref={emailRef} placeholder="email" className="input input-bordered" required />
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -62,11 +86,15 @@ const Login = () => {
                 </div>
                 <div className="form-control mt-6">
                   <input className="btn btn-primary" type="submit" value="Login" />
+
+                  <p><small>Forget Password please:<button onClick={handleResetPassword} className="text-blue-600 text-xl">Reset Password</button></small></p>
+                
                 </div>
               </form>
 
               <p className='text-center'>Already have an account? <Link className='text-blue-600 font-bold' to="/Register">Register</Link> </p>
             </div>
+          
           </div>
         </div>
       </div>
